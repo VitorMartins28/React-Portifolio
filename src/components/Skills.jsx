@@ -21,8 +21,7 @@ export default function Tools() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         {ferramentas.map((tool) => (
           <div key={tool.name} className="group h-48 perspective">
-            <div className="relative w-full h-full transition-all duration-500 preserve-3d group-hover:rotate-y-180">
-              
+            <div className="relative w-full h-full transition-all duration-500 preserve-3d group-hover:rotate-y-180">              
               {/* FRENTE DO CARD (Ícone) */}
               <div className="absolute inset-0 backface-hidden bg-zinc-900/50 border border-zinc-800 rounded-3xl flex flex-col items-center justify-center gap-4">
                 <div className={`text-6xl ${tool.color}`}>
@@ -32,7 +31,7 @@ export default function Tools() {
               </div>
 
               {/* VERSO DO CARD (Descrição) */}
-              <div className="absolute inset-0 backface-hidden rotate-y-180 bg-cyan-950 border border-cyan-500/50 rounded-3xl flex items-center justify-center p-6 shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+              <div className="absolute inset-0 backface-hidden rotate-y-180 bg-cyan-950 border border-cyan-500/50 rounded-3xl flex items-center justify-center p-6">
                 <p className="text-sm text-cyan-50 text-center leading-relaxed font-medium">
                   {tool.description}
                 </p>

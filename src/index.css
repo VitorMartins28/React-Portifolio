@@ -1,15 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,7 +14,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #fcfcfc;
   text-decoration: inherit;
 }
 a:hover {
@@ -28,10 +23,10 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  /* Mudamos de 'flex' para 'block' para o site fluir para baixo normalmente */
+  display: block; 
   min-height: 100vh;
+  background-color: #000000;
 }
 
 h1 {
@@ -64,9 +59,48 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #eeeff7;
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@layer utilities {
+  /* Cria a profundidade do efeito 3D */
+  .perspective {
+    perspective: 1000px;
+  }
+
+  /* Garante que os filhos preservem o posicionamento 3D */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Esconde a 'costa' do card quando ele vira */
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* Define a rotação de 180 graus no eixo Y */
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+@layer utilities {
+  /* Animação de flutuar */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Delay para os ícones não subirem juntos */
+  .delay-1 {
+    animation-delay: 1.5s;
   }
 }

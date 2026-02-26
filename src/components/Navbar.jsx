@@ -1,88 +1,48 @@
-import { useState, useEffect } from "react";
-import { FaAnchor, FaBars, FaTimes, FaHome, FaUser, FaCode, FaBriefcase, FaEnvelope } from "react-icons/fa";
+import { useState } from "react";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  // Efeito para mudar a cor ao rolar a página
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: "Início", href: "#", icon: <FaHome /> },
-    { name: "Sobre", href: "#sobre", icon: <FaUser /> },
-    { name: "Skills", href: "#skills", icon: <FaCode /> },
-    { name: "Projetos", href: "#projetos", icon: <FaBriefcase /> },
-    { name: "Contato", href: "#contato", icon: <FaEnvelope /> },
-  ];
+  // Função para fechar o menu e navegar
+  const navTo = (dest) => {
+    setIsOpen(false);
+    window.location.href = dest;
+  };
 
   return (
-    <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
-      scrolled ? "h-16 bg-zinc-950/90 backdrop-blur-xl border-b border-white/5" : "h-24 bg-transparent"
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-        
-        {/* LOGO - Minimalista e Forte */}
-        <div className="flex items-center gap-3 group">
-          <div className="relative">
-             <FaAnchor className="text-cyan-400 text-2xl drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] group-hover:rotate-12 transition-transform duration-300" />
-             <div className="absolute inset-0 bg-cyan-400/20 blur-lg rounded-full group-hover:bg-cyan-400/40 transition-all"></div>
-          </div>
-          <span className="text-2xl font-black tracking-tighter text-white uppercase italic">Anker<span className="text-cyan-400">.</span></span>
-        </div>
-
-        {/* DESKTOP NAV - Links com underline animado */}
-        <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="relative text-sm font-bold text-zinc-400 hover:text-white uppercase tracking-widest transition-all group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
-        </div>
-
-        {/* MOBILE TOGGLE - Botão Estilizado */}
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-900 border border-white/10 text-cyan-400 shadow-lg"
-        >
-          {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-        </button>
+    <nav className="fixed top-0 left-0 w-full h-20 z-[100] bg-black/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-6">
+      {/* LOGO */}
+      <div className="text-white font-black text-2xl z-[110]">
+        ANKER<span className="text-cyan-400">.</span>
       </div>
 
-      {/* MOBILE MENU - Estilo "Glass Overlay" */}
+      {/* BOTÃO HAMBÚRGUER - Ele fica SEMPRE acima de tudo */}
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden z-[110] text-cyan-400 text-4xl p-2"
+      >
+        {isOpen ? <HiX /> : <HiMenuAlt3 />}
+      </button>
+
+      {/* MENU MOBILE - O "CÁLICE DE SANGUE" (Cobre tudo) */}
       <div className={`
-        fixed inset-0 z-[90] bg-zinc-950/95 backdrop-blur-2xl flex flex-col items-center justify-center gap-6 transition-all duration-500 md:hidden
+        fixed inset-0 w-full h-screen bg-black transition-all duration-500 ease-in-out z-[105]
+        flex flex-col items-center justify-center gap-8
         ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
       `}>
-        {navLinks.map((link, index) => (
-          <a 
-            key={link.name} 
-            href={link.href} 
-            onClick={() => setIsOpen(false)}
-            style={{ transitionDelay: `${index * 50}ms` }}
-            className={`
-              flex items-center gap-4 text-3xl font-black uppercase tracking-tighter text-white hover:text-cyan-400 transition-all
-              ${isOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}
-            `}
-          >
-            <span className="text-cyan-500 text-xl">{link.icon}</span>
-            {link.name}
-          </a>
-        ))}
-        
-        {/* Rodapé do Menu Mobile */}
-        <div className="absolute bottom-10 text-zinc-600 text-xs tracking-[0.5em] uppercase">
-          Anker Developer © 2026
-        </div>
+        <button onClick={() => navTo("#inicio")} className="text-3xl font-bold text-white hover:text-cyan-400 transition-colors">INÍCIO</button>
+        <button onClick={() => navTo("#sobre")} className="text-3xl font-bold text-white hover:text-cyan-400 transition-colors">SOBRE</button>
+        <button onClick={() => navTo("#skills")} className="text-3xl font-bold text-white hover:text-cyan-400 transition-colors">SKILLS</button>
+        <button onClick={() => navTo("#contato")} className="text-3xl font-bold text-white hover:text-cyan-400 transition-colors">CONTATO</button>
+      </div>
+
+      {/* MENU DESKTOP */}
+      <div className="hidden md:flex gap-8 text-zinc-400 font-medium">
+        <a href="#inicio" className="hover:text-cyan-400">INÍCIO</a>
+        <a href="#sobre" className="hover:text-cyan-400">SOBRE</a>
+        <a href="#skills" className="hover:text-cyan-400">SKILLS</a>
+        <a href="#contato" className="hover:text-cyan-400">CONTATO</a>
       </div>
     </nav>
   );
